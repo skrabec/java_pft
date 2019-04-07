@@ -24,4 +24,14 @@ public class Point {
     this.x = x;
     this.y = y;
   }
+
+  public double distance (Point p){
+    return Math.sqrt(
+            (p.getX() - this.getX()) * (p.getX() - this.getX()) +
+                    (p.getY() - this.getY()) * (p.getY() - this.getY())
+    );
+  }
+
+
+
 }
