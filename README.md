@@ -1,2 +1,2 @@
 # java_pft
-Lection 0.4
+QA Automation Engineer course
