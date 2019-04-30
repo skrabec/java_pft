@@ -40,16 +40,22 @@ public class ContactData {
   }
 
   public ContactData(String firstName, String lastName, String group) {
-    this.id=Integer.MAX_VALUE;
-    this.firstName=firstName;
-    this.lastName=lastName;
-    this.group=group;
+    this.id = Integer.MAX_VALUE;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.group = group;
   }
 
   public ContactData(int id, String firstName, String lastName) {
-    this.id=Integer.MAX_VALUE;
-    this.firstName=firstName;
-    this.lastName=lastName;
+    this.id = Integer.MAX_VALUE;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public ContactData(String firstName, String lastName) {
+    this.id = Integer.MAX_VALUE;
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 
   public int getId() {

@@ -22,9 +22,9 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser.equals(BrowserType.FIREFOX)){
+    if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
-    } else if (browser.equals(BrowserType.CHROME)){
+    } else if (browser.equals(BrowserType.CHROME)) {
       wd = new ChromeDriver();
     }
 
@@ -46,7 +46,9 @@ public class ApplicationManager {
     return groupHelper;
   }
 
-  public ContactHelper getContactHelper () { return contactHelper; }
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;

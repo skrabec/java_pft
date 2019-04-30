@@ -21,13 +21,13 @@ public class GroupData {
   }
 
   public GroupData(String name) {
-    this.id=Integer.MAX_VALUE;
-    this.name=name;
+    this.id = Integer.MAX_VALUE;
+    this.name = name;
   }
 
   public GroupData(int id, String name) {
-    this.id=Integer.MAX_VALUE;
-    this.name=name;
+    this.id = Integer.MAX_VALUE;
+    this.name = name;
   }
 
   public void setId(int id) {
