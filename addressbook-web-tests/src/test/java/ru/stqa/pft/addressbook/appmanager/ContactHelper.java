@@ -71,7 +71,7 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List <ContactData> contacts = new ArrayList<>();
     List <WebElement> rows = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement cell : rows){
