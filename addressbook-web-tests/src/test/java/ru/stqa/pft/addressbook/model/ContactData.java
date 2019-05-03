@@ -47,7 +47,7 @@ public class ContactData {
   }
 
   public ContactData(int id, String firstName, String lastName) {
-    this.id = Integer.MAX_VALUE;
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
   }

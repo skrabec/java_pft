@@ -26,7 +26,7 @@ public class GroupData {
   }
 
   public GroupData(int id, String name) {
-    this.id = Integer.MAX_VALUE;
+    this.id = id;
     this.name = name;
   }
 
