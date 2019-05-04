@@ -10,10 +10,10 @@ import java.util.List;
 public class ContactCreationTests extends TestBase {
 
   @Test
-  public void testContactCreation() throws Exception {
+  public void testContactCreation() {
     List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("Matej", "Mares", "[none]");
-    app.contact().createContact(contact, true);
+    app.contact().create(contact, true);
     List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
