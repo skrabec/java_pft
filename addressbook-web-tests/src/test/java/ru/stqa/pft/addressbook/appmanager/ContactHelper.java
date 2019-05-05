@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -73,10 +75,14 @@ public class ContactHelper extends HelperBase {
     submitContactModification();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     deleteSelectedContacts();
     closePopUp();
+  }
+
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public boolean isThereAContact() {
@@ -85,6 +91,19 @@ public class ContactHelper extends HelperBase {
 
   public List<ContactData> list() {
     List <ContactData> contacts = new ArrayList<>();
+    List <WebElement> rows = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement cell : rows){
+      List<WebElement> cells = cell.findElements(By.tagName("td"));
+      String firstName = cells.get(2).getText();
+      String lastName = cells.get(1).getText();
+      int id = Integer.parseInt(cell.findElement(By.tagName("input")).getAttribute("value"));
+      contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
+    }
+    return contacts;
+  }
+
+  public Set<ContactData> all() {
+    Set <ContactData> contacts = new HashSet<ContactData>();
     List <WebElement> rows = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement cell : rows){
       List<WebElement> cells = cell.findElements(By.tagName("td"));
