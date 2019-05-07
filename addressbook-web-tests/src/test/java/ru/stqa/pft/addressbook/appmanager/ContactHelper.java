@@ -98,10 +98,11 @@ public class ContactHelper extends HelperBase {
       List<WebElement> cells = cell.findElements(By.tagName("td"));
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
+      String address = cells.get(3).getText();
       String allPhones = cells.get(5).getText();
       int id = Integer.parseInt(cell.findElement(By.tagName("input")).getAttribute("value"));
       contactCache.add(new ContactData()
-              .withId(id).withFirstName(firstName).withLastName(lastName)
+              .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address)
               .withAllPhones(allPhones));
     }
     return new Contacts(contactCache);
@@ -114,9 +115,10 @@ public class ContactHelper extends HelperBase {
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId())
             .withFirstName(firstName).withLastName(lastName).withHomePhone(home)
-            .withMobile(mobile).withWorkPhone(work);
+            .withMobile(mobile).withWorkPhone(work).withAddress(address);
   }
 }
