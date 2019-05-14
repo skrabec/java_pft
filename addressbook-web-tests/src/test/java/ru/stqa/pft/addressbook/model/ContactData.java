@@ -35,10 +35,21 @@ public class ContactData {
   private String mobile;
   @Expose
   private String workPhone;
-  @Expose
   private String allPhones;
   private String allEmails;
+  @Expose
   private File photo;
+  @Expose
+  private String photoBase64;
+
+  public String getPhotoBase64() {
+    return photoBase64;
+  }
+
+  public ContactData withPhotoBase64(String photoBase64) {
+    this.photoBase64 = photoBase64;
+    return this;
+  }
 
   public File getPhoto() {
     return photo;
