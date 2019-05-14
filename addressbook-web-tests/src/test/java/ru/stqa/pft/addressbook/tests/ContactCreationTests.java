@@ -49,10 +49,10 @@ public class ContactCreationTests extends TestBase {
   @Test(dataProvider = "validContactsJSON")
   public void testContactCreation(ContactData contact) {
     Contacts before = app.contact().all();
-    //File photo = new File("src/test/resources/stru.png");
+    File photo = new File("src/test/resources/stru.png");
     //ContactData contact = new ContactData()
     //        .withFirstName("Matej").withLastName("Mares").withGroup("[none]").withPhoto(photo);
-    app.contact().create(contact, true);
+    app.contact().create(contact, contact.withPhoto(photo), true);
     Contacts after = app.contact().all();
     assertThat(after.size(), equalTo(before.size() + 1));
 
