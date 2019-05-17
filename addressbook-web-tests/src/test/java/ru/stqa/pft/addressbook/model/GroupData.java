@@ -73,8 +73,10 @@ public class GroupData {
   @Override
   public String toString() {
     return "GroupData{" +
-            "id'" + id + '\'' +
-            "name='" + name + '\'' +
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
             '}';
   }
 
