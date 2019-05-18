@@ -1,44 +1,102 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
 
-  private int id = Integer.MAX_VALUE;
+  @Id
+  @Column(name = "id")
+  private int id;
+
+  @Column(name = "firstName")
   @Expose
   private String firstName;
+
+  @Column(name = "middleName")
   @Expose
   private String middleName;
+
+  @Column(name = "lastName")
   @Expose
   private String lastName;
+
+  @Transient
   @Expose
   private String group;
+
+  @Column(name = "nickName")
   @Expose
   private String nickName;
+
+  @Column(name = "title")
   @Expose
   private String title;
+
+  @Column(name = "company")
   @Expose
   private String company;
+
+  @Column(name = "address")
+  @Type(type = "text")
   @Expose
   private String address;
+
+  @Column(name = "email")
+  @Type(type = "text")
   @Expose
   private String email;
+
+  @Column(name = "email2")
+  @Type(type = "text")
   @Expose
   private String email2;
+
+  @Column(name = "email3")
+  @Type(type = "text")
   @Expose
   private String email3;
+
+  @Column(name = "home")
+  @Type(type = "text")
   @Expose
   private String homePhone;
+
+  @Column(name = "mobile")
+  @Type(type = "text")
   @Expose
   private String mobile;
+
+  @Column(name = "work")
+  @Type(type = "text")
   @Expose
   private String workPhone;
+
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", middleName='" + middleName + '\'' +
+            '}';
+  }
+
+  @Column(name = "photo")
+  @Type(type = "text")
   @Expose
-  private File photo;
+  private String photo;
+
+  @Transient
   @Expose
   private String photoBase64;
 
@@ -52,11 +110,11 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -231,14 +289,6 @@ public class ContactData {
     result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
-  }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
   }
 
 }
