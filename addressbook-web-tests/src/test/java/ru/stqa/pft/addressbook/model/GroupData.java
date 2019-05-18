@@ -14,14 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="group_list")
 public class GroupData {
-  @XStreamOmitField
-  @Id
-  @Column(name = "group_id")
-  private int id = Integer.MAX_VALUE;
-  @Expose
-  @Column(name = "group_name")
-  private String name;
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -44,6 +36,14 @@ public class GroupData {
     result = 31 * result + (footer != null ? footer.hashCode() : 0);
     return result;
   }
+
+  @XStreamOmitField
+  @Id
+  @Column(name = "group_id")
+  private int id;
+  @Expose
+  @Column(name = "group_name")
+  private String name;
 
   @Expose
   @Column(name = "group_header")
