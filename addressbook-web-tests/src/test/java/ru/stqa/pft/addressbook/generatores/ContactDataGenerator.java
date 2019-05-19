@@ -63,9 +63,18 @@ public class ContactDataGenerator {
     //byte[] fileContent = FileUtils.readFileToByteArray(new File("src/test/resources/stru.png"));
     //String encodedString = Base64.getEncoder().encodeToString(fileContent);
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactData().withFirstName(String.format("firstname %s", i)).withLastName(String.format("lastname %s", i)).withMiddleName(String.format("middlename %s", i))
-              .withGroup("[none]").withNickName(String.format("nickname %s", i)).withTitle(String.format("title %s", i))
-              .withCompany(String.format("company %s", i)).withAddress(String.format("address %s", i)).withEmail(String.format("test%s@mail.com", i)).withMobile(String.format("%s", i))
+      contacts.add(new ContactData().withFirstName(String.format("firstname %s", i))
+              .withLastName(String.format("lastname %s", i))
+              .withMiddleName(String.format("middlename %s", i))
+              .withGroup("[none]")
+              .withNickName(String.format("nickname %s", i))
+              .withTitle(String.format("title %s", i))
+              .withCompany(String.format("company %s", i))
+              .withAddress(String.format("address %s", i))
+              .withEmail(String.format("test%s@mail.com", i))
+              .withEmail2(String.format("test%s@mail2.com", i))
+              .withEmail3(String.format("test%s@mail3.com", i))
+              .withMobile(String.format("%s", i))
               .withHomePhone(String.format("%s", i)).withWorkPhone(String.format("%s", i)).withEmail(String.format("test%s@mail.com", i)).withEmail(String.format("test%s@mail21.com", i)));
     }
     return contacts;
