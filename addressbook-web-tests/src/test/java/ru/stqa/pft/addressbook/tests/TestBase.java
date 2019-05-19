@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -16,6 +17,7 @@ public class TestBase {
 
   Logger logger = LoggerFactory.getLogger(TestBase.class);
 
+  public static File photo = new File("src/test/resources/stru.png");
 
   protected static final ApplicationManager app
           = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -17,7 +19,7 @@ public class ContactModificationTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
               .withGroup("[none]").withNickName("honzamares").withTitle("PHDr")
-              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
+              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com").withPhoto(photo), true);
     }
   }
 
@@ -26,14 +28,30 @@ public class ContactModificationTests extends TestBase {
     Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
-            .withId(modifiedContact.getId()).withFirstName("test1").withLastName("test2");
+            .withId(modifiedContact.getId())
+            .withFirstName("test1")
+            .withMiddleName("md")
+            .withLastName("test2")
+            .withNickName("nn")
+            .withTitle("title")
+            .withCompany("comp")
+            .withAddress("address")
+            .withEmail("email")
+            .withEmail2("email2")
+            .withEmail3("email3")
+            .withHomePhone("home")
+            .withMobile("mob")
+            .withWorkPhone("work")
+            .withPhoto(photo);
+    app.goTo().goToHomePage();
     app.contact().modify(contact);
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertEquals(after.size(), before.size());
 
     before.remove(modifiedContact);
     before.add(contact);
     assertEquals(before, after);
-    assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
+    assertThat(after,
+            equalTo(before.withModified(modifiedContact, contact)));
   }
 }

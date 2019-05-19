@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 
 @Entity
@@ -12,7 +13,7 @@ public class ContactData {
 
   @Id
   @Column(name = "id")
-  private int id;
+  private int id = Integer.MAX_VALUE;
 
   @Column(name = "firstName")
   @Expose
@@ -20,7 +21,7 @@ public class ContactData {
 
   @Expose
   @Transient
-  transient private String group;
+  private String group;
 
   @Column(name = "middleName")
   @Expose
@@ -80,9 +81,9 @@ public class ContactData {
 
   @Transient
   private String allPhones;
+
   @Transient
   private String allEmails;
-
   @Column(name = "photo")
   @Type(type = "text")
   @Expose
@@ -284,6 +285,7 @@ public class ContactData {
             '}';
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -295,7 +297,6 @@ public class ContactData {
     if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
     if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
     if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-    if (group != null ? !group.equals(that.group) : that.group != null) return false;
     if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
     if (title != null ? !title.equals(that.title) : that.title != null) return false;
     if (company != null ? !company.equals(that.company) : that.company != null) return false;
@@ -315,7 +316,6 @@ public class ContactData {
     result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
     result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-    result = 31 * result + (group != null ? group.hashCode() : 0);
     result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
     result = 31 * result + (title != null ? title.hashCode() : 0);
     result = 31 * result + (company != null ? company.hashCode() : 0);
