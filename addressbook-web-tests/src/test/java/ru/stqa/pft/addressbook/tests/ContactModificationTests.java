@@ -19,7 +19,8 @@ public class ContactModificationTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
               .withGroup("[none]").withNickName("honzamares").withTitle("PHDr")
-              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com").withPhoto(photo), true);
+              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
+              //.withPhoto(photo), true);
     }
   }
 
