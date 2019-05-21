@@ -14,6 +14,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.util.Base64;
 
 
@@ -66,7 +68,6 @@ public class ContactDataGenerator {
       contacts.add(new ContactData().withFirstName(String.format("firstname %s", i))
               .withLastName(String.format("lastname %s", i))
               .withMiddleName(String.format("middlename %s", i))
-              .withGroup("[none]")
               .withNickName(String.format("nickname %s", i))
               .withTitle(String.format("title %s", i))
               .withCompany(String.format("company %s", i))

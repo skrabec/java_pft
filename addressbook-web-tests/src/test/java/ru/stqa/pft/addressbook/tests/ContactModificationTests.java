@@ -4,6 +4,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
 
@@ -15,10 +17,14 @@ public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreConditions() {
-    if (app.db().contacts().size() == 0) {
+    Groups groups = app.db().groups();
+    if (app.db().groups().size()==0){
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("formWasEmpty"));
+    } else if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
-              .withGroup("[none]").withNickName("honzamares").withTitle("PHDr")
+              .withNickName("honzamares").withTitle("PHDr").inGroup(groups.iterator().next())
               .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
               //.withPhoto(photo), true);
     }
@@ -27,6 +33,7 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testContactModification() {
     Contacts before = app.db().contacts();
+    Groups groups = app.db().groups();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
             .withId(modifiedContact.getId())
@@ -43,7 +50,8 @@ public class ContactModificationTests extends TestBase {
             .withHomePhone("home")
             .withMobile("mob")
             .withWorkPhone("work")
-            .withPhoto(photo);
+            .withPhoto(photo)
+            .inGroup(groups.iterator().next());
     app.goTo().goToHomePage();
     app.contact().modify(contact);
     Contacts after = app.db().contacts();

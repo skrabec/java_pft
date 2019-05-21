@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -19,9 +21,10 @@ public class ContactData {
   @Expose
   private String firstName;
 
-  @Expose
-  @Transient
-  private String group;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Column(name = "middleName")
   @Expose
@@ -89,19 +92,6 @@ public class ContactData {
   @Expose
   private String photo;
 
-  @Transient
-  @Expose
-  private String photoBase64;
-
-  public String getPhotoBase64() {
-    return photoBase64;
-  }
-
-  public ContactData withPhotoBase64(String photoBase64) {
-    this.photoBase64 = photoBase64;
-    return this;
-  }
-
   public File getPhoto() {
     if (photo != null) {
       return new File(photo);
@@ -168,11 +158,6 @@ public class ContactData {
 
   public ContactData withLastName(String lastName) {
     this.lastName = lastName;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -252,8 +237,8 @@ public class ContactData {
     return email;
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public String getHomePhone() {
@@ -275,8 +260,8 @@ public class ContactData {
             ", firstName='" + firstName + '\'' +
             ", middleName='" + middleName + '\'' +
             ", lastName='" + lastName + '\'' +
-            ", group='" + group + '\'' +
             ", nickName='" + nickName + '\'' +
+            ", groups='" + groups + '\'' +
             ", title='" + title + '\'' +
             ", company='" + company + '\'' +
             ", address='" + address + '\'' +
@@ -299,6 +284,7 @@ public class ContactData {
 
     if (id != that.id) return false;
     if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+    if (groups != null ? !groups.equals(that.groups) : that.groups != null) return false;
     if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
     if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
     if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
@@ -318,6 +304,7 @@ public class ContactData {
   public int hashCode() {
     int result = id;
     result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
     result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
@@ -331,5 +318,10 @@ public class ContactData {
     result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
     result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
     return result;
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }
