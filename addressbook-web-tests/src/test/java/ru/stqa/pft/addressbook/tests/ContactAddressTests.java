@@ -15,20 +15,30 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactAddressTests extends TestBase {
 
-
-
   @BeforeMethod
-  public void ensurePreConditions() {
-    Groups groups = app.db().groups();
-    if (app.db().groups().size()==0){
+  public void ensurePreConditions() throws InterruptedException {
+    if (app.db().groups().size()==0 && app.db().contacts().size() == 0){
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("formWasEmpty"));
-    } else if (app.db().contacts().size() == 0) {
+      Groups groups = app.db().groups();
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
               .withNickName("honzamares").withTitle("PHDr").inGroup(groups.iterator().next())
               .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
-      //.withPhoto(photo), true);
+    } else if (app.db().groups().size()==0){
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("formWasEmpty"));
+      Groups groups = app.db().groups();
+      app.contact().create(new ContactData()
+              .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
+              .withNickName("honzamares").withTitle("PHDr").inGroup(groups.iterator().next())
+              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
+    } else if (app.db().contacts().size() == 0){
+      Groups groups = app.db().groups();
+      app.contact().create(new ContactData()
+              .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
+              .withNickName("honzamares").withTitle("PHDr").inGroup(groups.iterator().next())
+              .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
     }
   }
 
