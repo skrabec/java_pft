@@ -115,6 +115,17 @@ public class ContactHelper extends HelperBase {
             .selectByVisibleText(groups.iterator().next().getName());
   }
 
+  public void selectGroupList(Groups groups){
+    new Select(wd.findElement(By.name("group")))
+            .selectByVisibleText(groups.iterator().next().getName());
+  }
+
+  public void deleteFromGroup(ContactData contact, Groups groups) {
+    selectGroupList(groups);
+    selectContactById(contact.getId());
+    deleteFromGroup();
+  }
+
   public void modify(ContactData contact) {
     initContactModificationById(contact.getId());
     fillContactForm(contact, false);
@@ -124,6 +135,10 @@ public class ContactHelper extends HelperBase {
 
   private void addToGroup(ContactData contact){
     click(By.name("add"));
+  }
+
+  public void deleteFromGroup(){
+    click(By.name("remove"));
   }
 
   public void addContactToGroup(Groups groups, ContactData contact) {
