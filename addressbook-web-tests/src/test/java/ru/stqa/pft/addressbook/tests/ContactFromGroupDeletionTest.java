@@ -46,6 +46,8 @@ public class ContactFromGroupDeletionTest extends TestBase {
       Groups contactGroupsBefore = contact.getGroups();
       groups.removeAll(contactGroupsBefore);
       app.contact().deleteFromGroup(contact, contactGroupsBefore);
+      Contacts afterContacts = app.db().contacts().stream().filter((s) -> s.getId() == contact.getId()).collect(Collectors.toCollection(Contacts::new));
+      assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
     } else if (beforeContacts.size() == 0) {
       ContactToGroupAdditionTest addToGroup = new ContactToGroupAdditionTest();
       addToGroup.testContactToGroupAddition();
@@ -55,12 +57,14 @@ public class ContactFromGroupDeletionTest extends TestBase {
       Groups contactGroupsBefore = contactData.getGroups();
       groups.removeAll(contactGroupsBefore);
       app.contact().deleteFromGroup(contactData, contactGroupsBefore);
+      Contacts afterContacts = app.db().contacts().stream().filter((s) -> s.getId() == contactData.getId()).collect(Collectors.toCollection(Contacts::new));
+      assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
     }
 
     //Contacts afterContacts = app.db().contacts().stream().filter((s) -> s.getId() == contact.getId()).collect(Collectors.toCollection(Contacts::new));
 
-    //assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
-    System.out.println(beforeContacts);
-    //System.out.println(afterContacts);
+//    assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
+//    System.out.println(beforeContacts);
+//    System.out.println(afterContacts);
   }
 }
