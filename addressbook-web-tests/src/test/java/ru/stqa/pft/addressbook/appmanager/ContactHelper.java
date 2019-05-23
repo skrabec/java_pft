@@ -122,8 +122,14 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
   }
 
-  public void addToGroup(ContactData contact){
+  private void addToGroup(ContactData contact){
     click(By.name("add"));
+  }
+
+  public void addContactToGroup(Groups groups, ContactData contact) {
+    selectContactById(contact.getId());
+    selectGroup(groups);
+    addToGroup(contact);
   }
 
   public void delete(ContactData contact) {

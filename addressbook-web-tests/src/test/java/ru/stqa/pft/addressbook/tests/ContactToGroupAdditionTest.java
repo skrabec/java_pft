@@ -57,15 +57,13 @@ public class ContactToGroupAdditionTest extends TestBase {
 
   @Test
   public void testContactToGroupAddition() {
-    app.goTo().goToHomePage();
     Groups groups = app.db().groups();
     Contacts beforeContacts = app.db().contacts().stream().filter((s) -> s.getGroups().size() < groups.size()).collect(Collectors.toCollection(Contacts::new));
     ContactData contact = beforeContacts.iterator().next();
     Groups contactGroups = contact.getGroups();
     groups.removeAll(contactGroups);
-    app.contact().selectContactById(contact.getId());
-    app.contact().selectGroup(groups);
-    app.contact().addToGroup(contact);
     app.goTo().goToHomePage();
+    app.contact().addContactToGroup(groups, contact);
   }
+
 }
