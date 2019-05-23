@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -69,12 +70,12 @@ public class ContactToGroupAdditionTest extends TestBase {
     groups.removeAll(contactGroupsBefore);
     app.goTo().goToHomePage();
     app.contact().addContactToGroup(groups, contact);
-    app.goTo().goToHomePage();
-    Groups contactGroupsAfter = contact.getGroups();
-    System.out.println(contactGroupsBefore);
-    System.out.println(contactGroupsAfter);
+    Contacts afterContacts = app.db().contacts().stream().filter((s) -> s.getId() == contact.getId()).collect(Collectors.toCollection(Contacts::new));
 
 
+    assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
+    System.out.println(beforeContacts);
+    System.out.println(afterContacts);
   }
 
 }
