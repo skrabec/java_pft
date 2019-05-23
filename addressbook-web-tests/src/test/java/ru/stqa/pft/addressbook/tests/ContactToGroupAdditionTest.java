@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,6 +11,9 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactToGroupAdditionTest extends TestBase {
   @BeforeClass
@@ -60,10 +65,16 @@ public class ContactToGroupAdditionTest extends TestBase {
     Groups groups = app.db().groups();
     Contacts beforeContacts = app.db().contacts().stream().filter((s) -> s.getGroups().size() < groups.size()).collect(Collectors.toCollection(Contacts::new));
     ContactData contact = beforeContacts.iterator().next();
-    Groups contactGroups = contact.getGroups();
-    groups.removeAll(contactGroups);
+    Groups contactGroupsBefore = contact.getGroups();
+    groups.removeAll(contactGroupsBefore);
     app.goTo().goToHomePage();
     app.contact().addContactToGroup(groups, contact);
+    app.goTo().goToHomePage();
+    Groups contactGroupsAfter = contact.getGroups();
+    System.out.println(contactGroupsBefore);
+    System.out.println(contactGroupsAfter);
+
+
   }
 
 }
