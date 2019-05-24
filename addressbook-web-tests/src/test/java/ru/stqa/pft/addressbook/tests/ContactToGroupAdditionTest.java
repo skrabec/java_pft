@@ -1,8 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -41,17 +38,17 @@ public class ContactToGroupAdditionTest extends TestBase {
   }
 
   @BeforeMethod
-  public void ensureMethodPreConditions(){
+  public void ensureMethodPreConditions() {
     Groups groups = app.db().groups();
     Contacts beforeContacts = app.db().contacts().stream().filter((s) -> s.getGroups().size() < groups.size()).collect(Collectors.toCollection(Contacts::new));
-    if (beforeContacts.size() == 0){
+    if (beforeContacts.size() == 0) {
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")
               .withNickName("honzamares").withTitle("PHDr")
               //.inGroup(groups.iterator().next())
               .withCompany("Skoda").withAddress("Prague").withEmail("honzamares@test.com"), true);
     }
-    if (groups.size() == 1){
+    if (groups.size() == 1) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("1 groups was here"));
     }
@@ -67,11 +64,9 @@ public class ContactToGroupAdditionTest extends TestBase {
     app.goTo().goToHomePage();
     app.contact().addContactToGroup(groups, contact);
     Contacts afterContacts = app.db().contacts().stream().filter((s) -> s.getId() == contact.getId()).collect(Collectors.toCollection(Contacts::new));
-
+    ContactData contactWithGroup = afterContacts.iterator().next();
 
     assertThat(String.valueOf(beforeContacts.equals(afterContacts)), true);
-    System.out.println(beforeContacts);
-    System.out.println(afterContacts);
+    assertThat(contactWithGroup.getGroups().size(), equalTo(contact.getGroups().size() + 1));
   }
-
 }
