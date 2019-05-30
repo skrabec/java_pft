@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class HttpSession {
   private CloseableHttpClient httpClient;
   private ApplicationManager app;
 
-  public HttpSession(ApplicationManager app){
-    this.app=app;
+  public HttpSession(ApplicationManager app) {
+    this.app = app;
     httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
   }
 
