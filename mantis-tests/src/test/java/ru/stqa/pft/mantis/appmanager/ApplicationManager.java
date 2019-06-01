@@ -23,6 +23,8 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
   private LoginHelper loginHelper;
+  private NavigationHelper navigationHelper;
+  private ManageHelper manageHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -45,6 +47,13 @@ public class ApplicationManager {
       registrationHelper = new RegistrationHelper(this);
     }
     return registrationHelper;
+  }
+
+  public NavigationHelper goTo(){
+    if (navigationHelper == null) {
+      navigationHelper = new NavigationHelper(this);
+    }
+    return navigationHelper;
   }
 
   public LoginHelper login(){
@@ -76,7 +85,6 @@ public class ApplicationManager {
       } else if (browser.equals(BrowserType.CHROME)) {
         wd = new ChromeDriver();
       }
-
       wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
       wd.get(properties.getProperty("web.BaseUrl"));
     }
@@ -95,5 +103,12 @@ public class ApplicationManager {
       jamesHelper = new JamesHelper(this);
     }
     return jamesHelper;
+  }
+
+  public ManageHelper manageUsers() {
+    if (manageHelper == null){
+      manageHelper = new ManageHelper(this);
+    }
+    return manageHelper;
   }
 }
