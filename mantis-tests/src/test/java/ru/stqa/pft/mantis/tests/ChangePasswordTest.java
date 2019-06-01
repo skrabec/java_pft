@@ -3,6 +3,8 @@ package ru.stqa.pft.mantis.tests;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.Model.MailMessage;
+import ru.stqa.pft.mantis.Model.UserData;
+import ru.stqa.pft.mantis.Model.Users;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -11,16 +13,16 @@ public class ChangePasswordTest extends TestBase {
 
   @Test
   public void testChangePassword() throws MessagingException {
-    String username = "user1559392134489";
     String password = "password";
     String newPassword = "1234";
-    String email = "user1559242437358@localhost.localdomain";
     String admin = "Administrator";
     String adminpass = "root";
+    Users users = app.db().users();
+    UserData user = users.iterator().next();
     app.login().start(admin, adminpass);
-    app.manageUsers().resetPassword(username);
-    List<MailMessage> mailMessages = app.james().waitForMail(username, password, 60000);
-    String confirmationLink = findConfirmationLink(mailMessages, email);
+    app.manageUsers().resetPassword(user.getUsername());
+    List<MailMessage> mailMessages = app.james().waitForMail(user.getUsername(), password, 60000);
+    String confirmationLink = findConfirmationLink(mailMessages, user.getEmail());
     //app.manageUsers().applyNewPassword(confirmationLink, newPassword);
 
   }
