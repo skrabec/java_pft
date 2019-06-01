@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
@@ -29,6 +31,10 @@ public class HelperBase {
         wd.findElement(locator).sendKeys(text);
       }
     }
+  }
+
+  protected void waitUntilElementIdAppears(int time, String name){
+    new WebDriverWait(wd, time).until(ExpectedConditions.presenceOfElementLocated(By.id(name)));
   }
 
   protected void attach(By locator, File file) {
