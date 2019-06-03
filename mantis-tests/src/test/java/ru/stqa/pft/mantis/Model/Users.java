@@ -11,21 +11,21 @@ public class Users extends ForwardingSet<UserData>{
 
   public Users(Users users) {
 
-    this.delegate = new HashSet<>(users.delegate);
+    this.delegate = new HashSet<UserData>(users.delegate);
   }
 
   public Users(){
-    this.delegate = new HashSet<>();
+    this.delegate = new HashSet<UserData>();
   }
 
-  public Users(Collection<UserData> groups) {
+  public Users(Collection<UserData> users) {
 
-    this.delegate = new HashSet<>(groups);
+    this.delegate = new HashSet<UserData>(users);
   }
 
   @Override
   protected Set<UserData> delegate() {
+
     return delegate;
   }
-
 }

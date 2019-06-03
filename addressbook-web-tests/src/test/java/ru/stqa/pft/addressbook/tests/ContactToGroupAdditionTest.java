@@ -40,7 +40,8 @@ public class ContactToGroupAdditionTest extends TestBase {
   @BeforeMethod
   public void ensureMethodPreConditions() {
     Groups groups = app.db().groups();
-    Contacts beforeContacts = app.db().contacts().stream().filter((s) -> s.getGroups().size() < groups.size()).collect(Collectors.toCollection(Contacts::new));
+    Contacts beforeContacts = app.db().contacts().stream().filter((s) -> s.getGroups().size() < groups.size())
+            .collect(Collectors.toCollection(Contacts::new));
     if (beforeContacts.size() == 0) {
       app.contact().create(new ContactData()
               .withFirstName("Petr").withMiddleName("Jan").withLastName("Mares")

@@ -12,6 +12,7 @@ import ru.stqa.pft.mantis.Model.Users;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChangePasswordTest extends TestBase {
 
@@ -25,7 +26,9 @@ public class ChangePasswordTest extends TestBase {
     String newPassword = "5555";
     String admin = "Administrator";
     String adminpass = "root";
+    Users withoutAdmin = app.db().users().stream().filter((a) -> a.getEmail() == "root@localhost").collect(Collectors.toCollection(Users::new));
     Users users = app.db().users();
+    users.removeAll(withoutAdmin);
     UserData user = users.iterator().next();
     app.login().start(admin, adminpass);
     app.manageUsers().resetPassword(user.getUsername());
