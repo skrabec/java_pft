@@ -26,10 +26,8 @@ public class ChangePasswordTest extends TestBase {
     String newPassword = "5555";
     String admin = "Administrator";
     String adminpass = "root";
-    Users findAdmin = app.db().users().stream().filter((a) -> a.getEmail() == "root@localhost").collect(Collectors.toCollection(Users::new));
-    Users users = app.db().users();
-    users.removeAll(findAdmin);
-    UserData user = users.iterator().next();
+    Users withoutAdmin = app.db().users().stream().filter((a) -> !a.getEmail().equals("root@localhost")).collect(Collectors.toCollection(Users::new));
+    UserData user = withoutAdmin.iterator().next();
     app.login().start(admin, adminpass);
     app.manageUsers().resetPassword(user.getUsername());
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
