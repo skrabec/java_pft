@@ -15,6 +15,7 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.26'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.2.Final'
+    compile group: 'org.robotframework', name: 'robotframework', version: '3.1.2'
 }
 
 task testGroups(type: Test) {
@@ -39,4 +40,11 @@ task testContacts(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+}
+
+task rf(type: JavaExec){
+    main = 'org.robotframework.RobotFramework'
+    classpath = sourceSets.test.runtimeClasspath
+    args '--outputdir', 'build/rf-report'
+    args 'src/test/resources/rf'
 }
