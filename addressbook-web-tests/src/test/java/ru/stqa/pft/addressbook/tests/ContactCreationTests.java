@@ -61,7 +61,7 @@ public class ContactCreationTests extends TestBase {
     verifyContactListInUI();
   }
 
-  @Test
+  @Test(enabled = false)
   public void testContactCreation(){
     Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
