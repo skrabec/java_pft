@@ -7,8 +7,6 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.File;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -42,7 +40,7 @@ public class ContactModificationTests extends TestBase {
     }
   }
 
-  @Test
+  @Test(enabled = false)
   public void testContactModification() {
     Contacts before = app.db().contacts();
     Groups groups = app.db().groups();
